@@ -20,6 +20,10 @@ class Server{
     middlewares(){
 
         this.app.use(express.static('public'));
+
+        //recibir datos con json 
+        this.app.use(express.json());
+
         this.app.use(cors());         
 
     }
