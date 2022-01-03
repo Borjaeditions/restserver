@@ -9,10 +9,12 @@
   "author": "Borjaeditions",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
+    "mongoose": "^6.1.4",
     "nodemon": "^2.0.15"
   }
 }
