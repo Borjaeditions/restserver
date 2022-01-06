@@ -1,6 +1,7 @@
 const {Router} = require('express');
 const { check } = require('express-validator');
-const { usuariosGet, usuariosPut, usuariosPost, usuariosDelete } = require('../controller/usuarios');
+const { usuariosGet, usuariosPut, usuariosPost, usuariosDelete, usuariosPatch } = require('../controller/usuarios');
+const { validarCampos } = require('../middlewares/validar-campos');
 
 const router = Router();
 
@@ -11,11 +12,14 @@ router.put('/:id', usuariosPut);
 //manda los errores en forma de arreglo, por lo que será necesario seleccionar cada uno de los mismos
 router.post('/', [
     check('nombre', "El nombre es obligatorio").not().isEmpty(),
-    check('password', "El pasword es obligatorio y más de 6 letras").isLength({min: 6}),
+    check('password', "La contraseña es obligatorio y más de 6 letras").isLength({min: 6}),
+    //check('password', "la contraseña debe contener un caracter especial").matches( "1234567890abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ!$#%/()=?¡+" ),
     check('correo', "EL correo no es valido").isEmail(),
     check('rol', 'No es un rol valido').isIn(['ADMIN_ROLE', 'USER_ROLE'])
-]
-    ,usuariosPost);
+],
+validarCampos,
+usuariosPost);
 router.delete('/', usuariosDelete);
+router.patch('/', usuariosPatch);
 
 module.exports = router;
