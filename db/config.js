@@ -27,9 +27,7 @@ const dbconexion = async() =>{
             // Esto no funcionó
 
         });
-        */ 
-        console.log('Base de datos conectada');
-        
+        */                 
     } catch (error) {
         
         console.log(error);

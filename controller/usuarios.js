@@ -31,17 +31,27 @@ const usuariosPost = async (req, res, next)=>{
     //ValidationResult no regresa nada si no hay algún error, por eso se utiliza isEmpity para conocer que el parametro errores este vacio
     
     //No veo si haya alguna manera de obtener algún dato "errores" pero sí con req.body
-    console.log(req.body.correo);
-
-    console.log(errores);
-    console.log(errores.errors);
-    console.log(errores.errors.value);
+    //Actualización de la linea anterior: Para poder obtener los erroes del json que retorna 'errores', se requiere seleccionar el indice con corchetes [] y el número de indice
+    //los inidices empiezan en 0
+    console.log(errores.errors[0].msg.cyan)
     if (!errores.isEmpty()){
+                
+        let mensajeArray = [];
+        task = errores.errors;
+        //console.log(task);
+        task.forEach(element => {
+            console.log(element.msg);
+            mensajeArray.push(element.msg);
+            console.log(mensajeArray);
+            //mensajeArray = mensajeArray + `${element.msg} `;
+            //console.log(task[element]);
+        });
+        console.log(mensajeArray[1].yellow);
 
-        //console.log("Correo introducido no es valido: ", errores)
+        console.log("Correo no valido".red, req.body.correo.yellow);
         return res.status(400).json({
 
-            msg: "El correo no es valido",
+            msgs: mensajeArray,
             correo: req.body.correo,
 
         });
